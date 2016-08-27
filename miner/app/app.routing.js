@@ -1,6 +1,6 @@
 // import { Routes, RouterModule } from '@angular/router';
 // const appRoutes: Routes = [
-//   { path: 'crisis-center', component: CrisisCenterComponent },
+//   { path: 'Mine', component: MineWord },
 //   {
 //     path: 'heroes',
 //     component: HeroListComponent,
