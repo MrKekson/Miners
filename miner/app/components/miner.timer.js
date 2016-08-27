@@ -21,7 +21,7 @@ var Timer = (function () {
     };
     Timer = __decorate([
         core_1.Component({
-            selector: 'header',
+            selector: 'topbar',
             template: 'Ticks (every second) : {{ticks}}'
         }), 
         __metadata('design:paramtypes', [])

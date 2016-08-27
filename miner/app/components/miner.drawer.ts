@@ -3,8 +3,8 @@ import {Component, Input, ViewChild, ElementRef} from '@angular/core';
 @Component({
     selector: 'drawer',
     template: `<canvas #drawer class='drawer'
-     [attr.width]='_size'
-     [attr.height]='_size'></canvas>`,
+     [attr.width]='_size.sizeW'
+     [attr.height]='_size.sizeH'></canvas>`,
 })
 export class Drawer {
 
@@ -16,9 +16,9 @@ export class Drawer {
     constructor(){
         console.log("drawer" )
         this._size = {
-                        _sizeX: 80,
-                        _sizeY: 80,
-                        _sizeType: "%",
+                        sizeH: 80,
+                        sizeW: 80,
+                        sizeType: "%",
                         }
     }
 

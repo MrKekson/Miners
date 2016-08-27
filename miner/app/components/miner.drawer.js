@@ -13,9 +13,9 @@ var Drawer = (function () {
     function Drawer() {
         console.log("drawer");
         this._size = {
-            _sizeX: 80,
-            _sizeY: 80,
-            _sizeType: "%",
+            sizeH: 80,
+            sizeW: 80,
+            sizeType: "%",
         };
     }
     Drawer.prototype.ngAfterViewInit = function () {
@@ -45,7 +45,7 @@ var Drawer = (function () {
     Drawer = __decorate([
         core_1.Component({
             selector: 'drawer',
-            template: "<canvas #drawer class='drawer'\n     [attr.width]='_size'\n     [attr.height]='_size'></canvas>",
+            template: "<canvas #drawer class='drawer'\n     [attr.width]='_size.sizeW'\n     [attr.height]='_size.sizeH'></canvas>",
         }), 
         __metadata('design:paramtypes', [])
     ], Drawer);

@@ -9,8 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var miner_timer_1 = require('./miner.timer');
+var miner_drawer_1 = require('./miner.drawer');
 var RootController = (function () {
     function RootController() {
+        this.timer = new miner_timer_1.Timer();
+        this.drawer = new miner_drawer_1.Drawer();
         console.log("rootController");
     }
     RootController = __decorate([

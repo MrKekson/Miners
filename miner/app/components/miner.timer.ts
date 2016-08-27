@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
-    selector: 'header',
+    selector: 'topbar',
     template: 'Ticks (every second) : {{ticks}}'
 })
 export class Timer {
