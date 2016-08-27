@@ -2,18 +2,24 @@ import {Component, Input, ViewChild, ElementRef} from '@angular/core';
 
 @Component({
     selector: 'drawer',
-    template: `<canvas #chessCanvas class='chess-diag'
+    template: `<canvas #drawer class='drawer'
      [attr.width]='_size'
      [attr.height]='_size'></canvas>`,
 })
 export class Drawer {
-    private _size: number;
+
+    private _size: Object; 
 
     // get the element with the #chessCanvas on it
     @ViewChild("worldCanvas") worldCanvas: ElementRef; 
 
     constructor(){
-        this._size = 150;
+        console.log("drawer" )
+        this._size = {
+                        _sizeX: 80,
+                        _sizeY: 80,
+                        _sizeType: "%",
+                        }
     }
 
     ngAfterViewInit() { // wait for the view to init before using the element
@@ -28,7 +34,7 @@ export class Drawer {
         return this._size;
     }
 
-    @Input () set size(newValue: number){
-        this._size = Math.floor(newValue);
+    @Input () set size(newValue: Object){
+        this._size = newValue;
     }
 }

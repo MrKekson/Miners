@@ -11,7 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Drawer = (function () {
     function Drawer() {
-        this._size = 150;
+        console.log("drawer");
+        this._size = {
+            _sizeX: 80,
+            _sizeY: 80,
+            _sizeType: "%",
+        };
     }
     Drawer.prototype.ngAfterViewInit = function () {
         var context = this.worldCanvas.nativeElement.getContext("2d");
@@ -24,7 +29,7 @@ var Drawer = (function () {
             return this._size;
         },
         set: function (newValue) {
-            this._size = Math.floor(newValue);
+            this._size = newValue;
         },
         enumerable: true,
         configurable: true
@@ -40,7 +45,7 @@ var Drawer = (function () {
     Drawer = __decorate([
         core_1.Component({
             selector: 'drawer',
-            template: "<canvas #chessCanvas class='chess-diag'\n     [attr.width]='_size'\n     [attr.height]='_size'></canvas>",
+            template: "<canvas #drawer class='drawer'\n     [attr.width]='_size'\n     [attr.height]='_size'></canvas>",
         }), 
         __metadata('design:paramtypes', [])
     ], Drawer);

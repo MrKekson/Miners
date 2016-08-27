@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Timer }  from './components/comp.timer';
 import { World }  from './components/miner.world';
+import { View }  from './components/comp.mainview';
 
 @NgModule({
   imports:      [ BrowserModule ],
