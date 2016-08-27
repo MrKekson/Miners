@@ -10,16 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-//import { AppComponent }  from './app.component';
-var comp_timer_1 = require('./components/comp.timer');
+//import { Routes, RouterModule } from '@angular/router';
+var controller_root_1 = require('./components/controller.root');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule],
-            declarations: [comp_timer_1.Timer],
-            bootstrap: [comp_timer_1.Timer]
+            declarations: [controller_root_1.RootController],
+            bootstrap: [controller_root_1.RootController]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);
