@@ -9,17 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var Rx_1 = require('rxjs/Rx');
+var Timer = (function () {
+    function Timer() {
+        this.ticks = 0;
     }
-    AppComponent = __decorate([
+    Timer.prototype.ngOnInit = function () {
+        var _this = this;
+        var timer = Rx_1.Observable.timer(2000, 1000);
+        timer.subscribe(function (t) { return _this.ticks = t; });
+    };
+    Timer = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<h1>My First Angular 2 App</h1>'
+            template: 'Ticks (every second) : {{ticks}}'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], Timer);
+    return Timer;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.Timer = Timer;
+//# sourceMappingURL=comp.timer.js.map
