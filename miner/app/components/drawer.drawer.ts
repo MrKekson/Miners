@@ -9,7 +9,7 @@ import {Drawable} from './drawer.drawable'
 
 export class Drawer {
 
-    protected _stats : Stat[] = [];  
+    protected _stats: Stat[] = [];
 
     protected _size: { H: number, W: number };
     protected _context: CanvasRenderingContext2D;
@@ -42,6 +42,11 @@ export class Drawer {
 
         this._context.font = "10px Verdana";
 
+        //test data, remove
+        
+        this.Drawables.push( new Drawable(100, 100, 0, 10, 3,"#00ff00", "#404040") );
+        this.Drawables.push( new Drawable(300, 100, 0, 10, 0,"#0000ff", "#000000") );
+
         this.startAnimating(30);
         console.log("Drawer Init")
     }
@@ -64,38 +69,63 @@ export class Drawer {
             var sinceStart = this._fpsData.now - this._fpsData.startTime;
             this._fpsData.currentFps = Math.round(1000 / (sinceStart / ++this._fpsData.frameCount) * 100) / 100;
 
-           //Clear Frame, perf?
+            //Clear Frame, perf?
             this._context.clearRect(0, 0, this._size.W, this._size.H);
-            this.RenderStats(true);            
+            this.RenderStats(true);
             //stat box
 
             //  drawing code here
-          
-            for(var item of this.Drawables){           
-                               
+
+            for (var item of this.Drawables) {
+                    this.Renderer1(item);
+
+
             }
         }
 
     }
 
-    private RenderStats(render:Boolean){
-        if(render){
+    //first try
+    private Renderer1( drw:Drawable ){
+           switch (drw.shape) {
+               case 0:
+                        this._context.beginPath();
+                        this._context.arc(drw.x, drw.y, drw.size, 0, 2 * Math.PI, false);
+                        this._context.fillStyle = drw.colour;
+                        this._context.fill();
+                        this._context.lineWidth = 5;
+                        this._context.strokeStyle = drw.borderColour;
+                        this._context.stroke();
+
+                   break;
+                case 3: 
+
+                        this._context.fillStyle = drw.colour;
+                        this._context.fillRect(drw.x, drw.y, drw.x+drw.size, drw.y+drw.size);
+                        this._context.strokeRect(drw.x, drw.y, drw.x+drw.size, drw.y+drw.size);
+                    break;
+
+           
+               default:
+                   break;
+           } 
+
+
+
+    }
+
+    private RenderStats(render: Boolean) {
+        if (render) {
             //speed?
             var tmparr = this._stats.slice(0);
-
-            var fpsCount = new Stat();
-                fpsCount.key = "Fps";
-                fpsCount.val = this._fpsData.currentFps;
-                tmparr.push( fpsCount );
-            
-            var frameCount = new Stat();
-                frameCount.key = "Frames";
-                frameCount.val = this._fpsData.frameCount;
-                tmparr.push( frameCount );
+         
+            tmparr.push(new Stat("Fps", this._fpsData.currentFps));
+            tmparr.push(new Stat("Frames", this._fpsData.frameCount));
+            tmparr.push(new Stat("Drawables", this.Drawables.length));
 
             var i = 1;
-            for(var item of tmparr){           
-                 this._context.fillText( item.key + ":" + item.val ,10, 10*i++);                 
+            for (var item of tmparr) {
+                this._context.fillText(item.key + ":" + item.val, 10, 10 * i++);
             }
         }
     }
@@ -112,4 +142,4 @@ export class Drawer {
 
 }
 
-class Stat{ key: any; val: any; }
+class Stat { key: any; val: any; constructor( key: string, val:any  ) { this.key = key; this.val = val; } }

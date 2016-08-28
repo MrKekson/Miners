@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var drawer_drawable_1 = require('./drawer.drawable');
 var Drawer = (function () {
     function Drawer() {
         this._stats = [];
@@ -25,6 +26,9 @@ var Drawer = (function () {
     Drawer.prototype.ngAfterViewInit = function () {
         this._context = this.drawerCanvas.nativeElement.getContext("2d");
         this._context.font = "10px Verdana";
+        //test data, remove
+        this.Drawables.push(new drawer_drawable_1.Drawable(100, 100, 0, 10, 3, "#00ff00", "#404040"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(300, 100, 0, 10, 0, "#0000ff", "#000000"));
         this.startAnimating(30);
         console.log("Drawer Init");
     };
@@ -51,21 +55,38 @@ var Drawer = (function () {
             //  drawing code here
             for (var _i = 0, _a = this.Drawables; _i < _a.length; _i++) {
                 var item = _a[_i];
+                this.Renderer1(item);
             }
+        }
+    };
+    //first try
+    Drawer.prototype.Renderer1 = function (drw) {
+        switch (drw.shape) {
+            case 0:
+                this._context.beginPath();
+                this._context.arc(drw.x, drw.y, drw.size, 0, 2 * Math.PI, false);
+                this._context.fillStyle = drw.colour;
+                this._context.fill();
+                this._context.lineWidth = 5;
+                this._context.strokeStyle = drw.borderColour;
+                this._context.stroke();
+                break;
+            case 3:
+                this._context.fillStyle = drw.colour;
+                this._context.fillRect(drw.x, drw.y, drw.x + drw.size, drw.y + drw.size);
+                this._context.strokeRect(drw.x, drw.y, drw.x + drw.size, drw.y + drw.size);
+                break;
+            default:
+                break;
         }
     };
     Drawer.prototype.RenderStats = function (render) {
         if (render) {
             //speed?
             var tmparr = this._stats.slice(0);
-            var fpsCount = new Stat();
-            fpsCount.key = "Fps";
-            fpsCount.val = this._fpsData.currentFps;
-            tmparr.push(fpsCount);
-            var frameCount = new Stat();
-            frameCount.key = "Frames";
-            frameCount.val = this._fpsData.frameCount;
-            tmparr.push(frameCount);
+            tmparr.push(new Stat("Fps", this._fpsData.currentFps));
+            tmparr.push(new Stat("Frames", this._fpsData.frameCount));
+            tmparr.push(new Stat("Drawables", this.Drawables.length));
             var i = 1;
             for (var _i = 0, tmparr_1 = tmparr; _i < tmparr_1.length; _i++) {
                 var item = tmparr_1[_i];
@@ -102,7 +123,9 @@ var Drawer = (function () {
 }());
 exports.Drawer = Drawer;
 var Stat = (function () {
-    function Stat() {
+    function Stat(key, val) {
+        this.key = key;
+        this.val = val;
     }
     return Stat;
 }());
