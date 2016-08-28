@@ -11,18 +11,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Drawer = (function () {
     function Drawer() {
+        this.stop = false;
+        // private $results = $("#results");
+        this.fpsData = { targetFps: 0, fpsInterval: 0, startTime: 0, now: 0, then: 0, elapsed: 0, currentFps: 0, frameCount: 0 };
         console.log("drawer");
         this._size = {
-            sizeH: 80,
-            sizeW: 80,
-            sizeType: "%",
+            sizeH: 700,
+            sizeW: 900,
         };
     }
     Drawer.prototype.ngAfterViewInit = function () {
-        var context = this.worldCanvas.nativeElement.getContext("2d");
-        // happy drawing from here on
-        context.fillStyle = 'blue';
-        context.fillRect(10, 10, 150, 150);
+        this._contexts = [];
+        this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
+        this._contexts.forEach(function (element) {
+            element.fillStyle = 'blue';
+            element.fillRect(50, 50, 150, 150);
+        });
+        this.startAnimating(30);
+    };
+    Drawer.prototype.startAnimating = function (fps) {
+        this.fpsData.targetFps = fps;
+        this.fpsData.fpsInterval = 1000 / fps;
+        this.fpsData.then = Date.now();
+        this.fpsData.startTime = this.fpsData.then;
+        this.animate();
+    };
+    Drawer.prototype.animate = function () {
+        var _this = this;
+        requestAnimationFrame(function () { _this.animate(); });
+        this.fpsData.now = Date.now();
+        this.fpsData.elapsed = this.fpsData.now - this.fpsData.then;
+        if (this.fpsData.elapsed > this.fpsData.fpsInterval) {
+            this.fpsData.then = this.fpsData.now - (this.fpsData.elapsed % this.fpsData.fpsInterval);
+            var sinceStart = this.fpsData.now - this.fpsData.startTime;
+            this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;
+        }
     };
     Object.defineProperty(Drawer.prototype, "size", {
         get: function () {
@@ -35,9 +58,9 @@ var Drawer = (function () {
         configurable: true
     });
     __decorate([
-        core_1.ViewChild("worldCanvas"), 
+        core_1.ViewChild("drawer"), 
         __metadata('design:type', core_1.ElementRef)
-    ], Drawer.prototype, "worldCanvas", void 0);
+    ], Drawer.prototype, "drawerCanvas", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
@@ -45,7 +68,7 @@ var Drawer = (function () {
     Drawer = __decorate([
         core_1.Component({
             selector: 'drawer',
-            template: "<canvas #drawer class='drawer'\n     [attr.width]='_size.sizeW'\n     [attr.height]='_size.sizeH'></canvas>",
+            templateUrl: "templates/drawer.html",
         }), 
         __metadata('design:paramtypes', [])
     ], Drawer);

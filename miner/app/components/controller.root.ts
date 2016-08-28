@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Timer }  from './miner.timer';
 import { World }  from './miner.world';
@@ -6,10 +6,12 @@ import { Drawer }  from './miner.drawer';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './templates/mainView.html'
+  templateUrl: './templates/mainView.html',
+  directives: [Drawer, World, Timer ]
 })
 
 export class RootController { 
+
 
       private timer : Timer;
       private world: World;
@@ -17,10 +19,7 @@ export class RootController {
 
      constructor() 
      {
-       this.timer = new Timer();
-       this.drawer = new Drawer();
-
-
+  
          console.log("rootController")
          
      }

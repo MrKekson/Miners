@@ -9,22 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var miner_timer_1 = require('./miner.timer');
-var miner_world_1 = require('./miner.world');
-var miner_drawer_1 = require('./miner.drawer');
-var RootController = (function () {
-    function RootController() {
-        console.log("rootController");
+var World = (function () {
+    function World() {
     }
-    RootController = __decorate([
+    World = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: './templates/mainView.html',
-            directives: [miner_drawer_1.Drawer, miner_world_1.World, miner_timer_1.Timer]
+            //data: {  },
+            template: '<div>'
         }), 
         __metadata('design:paramtypes', [])
-    ], RootController);
-    return RootController;
+    ], World);
+    return World;
 }());
-exports.RootController = RootController;
-//# sourceMappingURL=controller.root.js.map
+exports.World = World;
+//# sourceMappingURL=miner.miner.js.map

@@ -1,40 +1,80 @@
-import {Component, Input, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 
 @Component({
     selector: 'drawer',
-    template: `<canvas #drawer class='drawer'
-     [attr.width]='_size.sizeW'
-     [attr.height]='_size.sizeH'></canvas>`,
+    templateUrl: `templates/drawer.html`,
 })
 export class Drawer {
 
-    private _size: Object; 
+    private _size: Object;
+    private _contexts: CanvasRenderingContext2D[];
+
+
+    private stop = false;
+
+    // private $results = $("#results");
+    private fpsData = { targetFps: 0, fpsInterval: 0, startTime: 0, now: 0, then: 0, elapsed: 0, currentFps: 0, frameCount: 0 };
+
 
     // get the element with the #chessCanvas on it
-    @ViewChild("worldCanvas") worldCanvas: ElementRef; 
+    @ViewChild("drawer") drawerCanvas: ElementRef;
 
-    constructor(){
-        console.log("drawer" )
+    constructor() {
+        console.log("drawer")
         this._size = {
-                        sizeH: 80,
-                        sizeW: 80,
-                        sizeType: "%",
-                        }
+            sizeH: 700,
+            sizeW: 900,
+
+        }
     }
 
     ngAfterViewInit() { // wait for the view to init before using the element
+        this._contexts = [];
+        this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
 
-      let context: CanvasRenderingContext2D = this.worldCanvas.nativeElement.getContext("2d");
-      // happy drawing from here on
-      context.fillStyle = 'blue';
-      context.fillRect(10, 10, 150, 150);
+        this._contexts.forEach(element => {
+
+            element.fillStyle = 'blue';
+            element.fillRect(50, 50, 150, 150);
+
+        });
+
+        this.startAnimating(30);
     }
 
-    get size(){
+    startAnimating(fps) {
+        this.fpsData.targetFps = fps;
+        this.fpsData.fpsInterval = 1000 / fps;
+        this.fpsData.then = Date.now();
+        this.fpsData.startTime = this.fpsData.then;
+        this.animate();
+    }
+
+    animate() {
+
+        requestAnimationFrame(() => { this.animate() });
+
+        this.fpsData.now = Date.now();
+        this.fpsData.elapsed = this.fpsData.now - this.fpsData.then;
+        if (this.fpsData.elapsed > this.fpsData.fpsInterval) {
+            this.fpsData.then = this.fpsData.now - (this.fpsData.elapsed % this.fpsData.fpsInterval);
+            var sinceStart = this.fpsData.now -  this.fpsData.startTime;
+            this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;  
+            // Put your drawing code here
+
+           
+        }
+        
+    }
+
+
+    get size() {
         return this._size;
     }
 
-    @Input () set size(newValue: Object){
+    @Input() set size(newValue: Object) {
         this._size = newValue;
     }
+
+
 }
