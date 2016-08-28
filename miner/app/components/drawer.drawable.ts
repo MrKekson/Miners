@@ -1,3 +1,4 @@
+import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 
 export enum Shape  { Sphere,
               triangle,

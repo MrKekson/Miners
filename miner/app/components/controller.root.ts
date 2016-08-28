@@ -20,8 +20,12 @@ export class RootController {
      constructor() 
      {
   
-         console.log("rootController")
+         console.log("Root.ctor()")
          
+     }
+
+     getDrawer(){
+       return this.drawer;
      }
 
 }

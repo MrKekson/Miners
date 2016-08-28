@@ -14,8 +14,11 @@ var miner_world_1 = require('./miner.world');
 var drawer_drawer_1 = require('./drawer.drawer');
 var RootController = (function () {
     function RootController() {
-        console.log("rootController");
+        console.log("Root.ctor()");
     }
+    RootController.prototype.getDrawer = function () {
+        return this.drawer;
+    };
     RootController = __decorate([
         core_1.Component({
             selector: 'my-app',
