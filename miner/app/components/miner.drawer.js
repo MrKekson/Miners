@@ -11,27 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Drawer = (function () {
     function Drawer() {
-        this._dataPanel = { h: 10, w: 10, data: { fps: 0 }, context: CanvasRenderingContext2D };
+        this._dataPanel = { h: 10, w: 10, context: CanvasRenderingContext2D };
         this.stop = false;
         // private $results = $("#results");
         this.fpsData = { targetFps: 0, fpsInterval: 0, startTime: 0, now: 0, then: 0, elapsed: 0, currentFps: 0, frameCount: 0 };
         this._size = {
-            sizeH: 700,
-            sizeW: 900,
+            sizeH: 500,
+            sizeW: 700,
         };
     }
     Drawer.prototype.ngAfterViewInit = function () {
-        this._contexts = [];
-        var ctx = this.drawerCanvas.nativeElement.getContext("2D");
-        ctx.font = "10px Verdana";
-        ctx.fillText("Fps: <<>>", 10, 50);
-        //   this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
-        // this._dataPanel.context
-        this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
-        this._contexts.forEach(function (element) {
-            element.fillStyle = 'blue';
-            element.fillRect(50, 50, 150, 150);
-        });
+        this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
+        this._dataPanel.context.font = "10px Verdana";
+        this._dataPanel.context.fillText("Fps: ---", 10, 10);
+        /*  this._contexts = [];
+          this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
+          this._contexts.forEach(element => {
+  
+              element.fillStyle = 'blue';
+              element.fillRect(50, 50, 150, 150);
+  
+          });*/
         this.startAnimating(30);
         console.log("Drawer Initialized.");
     };
@@ -52,7 +52,8 @@ var Drawer = (function () {
             var sinceStart = this.fpsData.now - this.fpsData.startTime;
             this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;
             // Put your drawing code here
-            this._dataPanel.data.fps = this.fpsData.currentFps;
+            this._dataPanel.context.clearRect(10, 10, 20, 10);
+            this._dataPanel.context.fillText("Fps:" + this.fpsData.currentFps, 10, 10);
         }
     };
     Object.defineProperty(Drawer.prototype, "size", {

@@ -9,7 +9,7 @@ export class Drawer {
     private _size: Object;
     private _contexts: CanvasRenderingContext2D[];
 
-    private _dataPanel =  { h:10, w:10, data : { fps : 0  }, context: CanvasRenderingContext2D };
+    public _dataPanel =  { h:10, w:10, context: CanvasRenderingContext2D };
 
     private stop = false;
 
@@ -23,30 +23,29 @@ export class Drawer {
     constructor() {
        
         this._size = {
-            sizeH: 700,
-            sizeW: 900,
+            sizeH: 500,
+            sizeW: 700,
 
         }
     }
 
     ngAfterViewInit() { // wait for the view to init before using the element
-        this._contexts = [];
 
-        var ctx:CanvasRenderingContext2D = this.drawerCanvas.nativeElement.getContext("2D");
-        ctx.font="10px Verdana";
-        ctx.fillText("Fps: <<>>",10,50);
-     //   this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
+        this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
 
-       // this._dataPanel.context
+        this._dataPanel.context.font="10px Verdana";
+        this._dataPanel.context.fillText("Fps: ---",10,10);
 
+      
+
+      /*  this._contexts = [];
         this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
-
         this._contexts.forEach(element => {
 
             element.fillStyle = 'blue';
             element.fillRect(50, 50, 150, 150);
 
-        });
+        });*/
 
         this.startAnimating(30);
         console.log("Drawer Initialized.")
@@ -71,7 +70,10 @@ export class Drawer {
             var sinceStart = this.fpsData.now -  this.fpsData.startTime;
             this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;  
             // Put your drawing code here
-            this._dataPanel.data.fps = this.fpsData.currentFps;
+            
+           
+            this._dataPanel.context.clearRect(10, 10, 20, 10);
+            this._dataPanel.context.fillText("Fps:" + this.fpsData.currentFps,10,10);
            
         }
         
