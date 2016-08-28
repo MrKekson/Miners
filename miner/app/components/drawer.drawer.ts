@@ -72,7 +72,7 @@ export class Drawer {
             // Put your drawing code here
             
            
-            this._dataPanel.context.clearRect(1, 1, 50, 50);
+            this._dataPanel.context.clearRect(1, 1, 70, 70);
             this._dataPanel.context.fillText("Fps:" + this.fpsData.currentFps,10,10);
            
         }

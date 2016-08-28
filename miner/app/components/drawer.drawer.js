@@ -53,7 +53,7 @@ var Drawer = (function () {
             var sinceStart = this.fpsData.now - this.fpsData.startTime;
             this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;
             // Put your drawing code here
-            this._dataPanel.context.clearRect(1, 1, 50, 50);
+            this._dataPanel.context.clearRect(1, 1, 70, 70);
             this._dataPanel.context.fillText("Fps:" + this.fpsData.currentFps, 10, 10);
         }
     };

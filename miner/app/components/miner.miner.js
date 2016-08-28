@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var World = (function () {
-    function World() {
+var Miner = (function () {
+    function Miner() {
     }
-    World = __decorate([
+    Miner = __decorate([
         core_1.Component({
             //data: {  },
             template: '<div>'
         }), 
         __metadata('design:paramtypes', [])
-    ], World);
-    return World;
+    ], Miner);
+    return Miner;
 }());
-exports.World = World;
+exports.Miner = Miner;
 //# sourceMappingURL=miner.miner.js.map

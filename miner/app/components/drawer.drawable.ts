@@ -1,16 +1,19 @@
-import {Component} from '@angular/core';
 
 export enum Shape  { Sphere,
               triangle,
               rect,              
             }
 
-export interface IDrawable {
-    x: number;
-    y: number;
+export class Drawable {
+    x: number = 0;
+    y: number = 0;
     
-    facing : number;//360
-    shape: Shape;
+    facing : number = 0;//360
+    shape: Shape = 0;
+    colour: string = '#ff0000';
     
     visible: boolean;
+
+
+
 }
