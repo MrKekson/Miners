@@ -11,10 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Drawer = (function () {
     function Drawer() {
+        this._dataPanel = { h: 10, w: 10, data: { fps: 0 }, context: CanvasRenderingContext2D };
         this.stop = false;
         // private $results = $("#results");
         this.fpsData = { targetFps: 0, fpsInterval: 0, startTime: 0, now: 0, then: 0, elapsed: 0, currentFps: 0, frameCount: 0 };
-        console.log("drawer");
         this._size = {
             sizeH: 700,
             sizeW: 900,
@@ -22,12 +22,15 @@ var Drawer = (function () {
     }
     Drawer.prototype.ngAfterViewInit = function () {
         this._contexts = [];
+        //   this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
+        // this._dataPanel.context
         this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
         this._contexts.forEach(function (element) {
             element.fillStyle = 'blue';
             element.fillRect(50, 50, 150, 150);
         });
         this.startAnimating(30);
+        console.log("Drawer Initialized.");
     };
     Drawer.prototype.startAnimating = function (fps) {
         this.fpsData.targetFps = fps;
@@ -45,6 +48,8 @@ var Drawer = (function () {
             this.fpsData.then = this.fpsData.now - (this.fpsData.elapsed % this.fpsData.fpsInterval);
             var sinceStart = this.fpsData.now - this.fpsData.startTime;
             this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;
+            // Put your drawing code here
+            this._dataPanel.data.fps = this.fpsData.currentFps;
         }
     };
     Object.defineProperty(Drawer.prototype, "size", {

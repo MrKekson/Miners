@@ -9,6 +9,7 @@ export class Drawer {
     private _size: Object;
     private _contexts: CanvasRenderingContext2D[];
 
+    private _dataPanel =  { h:10, w:10, data : { fps : 0  }, context: CanvasRenderingContext2D };
 
     private stop = false;
 
@@ -20,7 +21,7 @@ export class Drawer {
     @ViewChild("drawer") drawerCanvas: ElementRef;
 
     constructor() {
-        console.log("drawer")
+       
         this._size = {
             sizeH: 700,
             sizeW: 900,
@@ -30,6 +31,11 @@ export class Drawer {
 
     ngAfterViewInit() { // wait for the view to init before using the element
         this._contexts = [];
+
+     //   this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
+
+       // this._dataPanel.context
+
         this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));
 
         this._contexts.forEach(element => {
@@ -40,6 +46,7 @@ export class Drawer {
         });
 
         this.startAnimating(30);
+        console.log("Drawer Initialized.")
     }
 
     startAnimating(fps) {
@@ -53,15 +60,15 @@ export class Drawer {
     animate() {
 
         requestAnimationFrame(() => { this.animate() });
-
         this.fpsData.now = Date.now();
         this.fpsData.elapsed = this.fpsData.now - this.fpsData.then;
+
         if (this.fpsData.elapsed > this.fpsData.fpsInterval) {
             this.fpsData.then = this.fpsData.now - (this.fpsData.elapsed % this.fpsData.fpsInterval);
             var sinceStart = this.fpsData.now -  this.fpsData.startTime;
             this.fpsData.currentFps = Math.round(1000 / (sinceStart / ++this.fpsData.frameCount) * 100) / 100;  
             // Put your drawing code here
-
+            this._dataPanel.data.fps = this.fpsData.currentFps;
            
         }
         
