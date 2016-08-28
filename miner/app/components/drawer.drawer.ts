@@ -7,7 +7,7 @@ import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 export class Drawer {
 
     private _size: Object;
-    private _contexts: CanvasRenderingContext2D[];
+    //private _contexts: CanvasRenderingContext2D[];
 
     public _dataPanel =  { h:10, w:10, context: CanvasRenderingContext2D };
 

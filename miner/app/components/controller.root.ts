@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Timer }  from './miner.timer';
 import { World }  from './miner.world';
-import { Drawer }  from './miner.drawer';
+import { Drawer }  from './drawer.drawer';
 
 @Component({
   selector: 'my-app',

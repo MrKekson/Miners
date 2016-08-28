@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Drawer = (function () {
     function Drawer() {
+        //private _contexts: CanvasRenderingContext2D[];
         this._dataPanel = { h: 10, w: 10, context: CanvasRenderingContext2D };
         this.stop = false;
         // private $results = $("#results");
