@@ -9,7 +9,7 @@ import {Drawable} from './drawer.drawable'
 
 export class Drawer {
 
-    protected _stats = JSON.parse('{ "stats": []}');  
+    protected _stats : Stat[] = [];  
 
     protected _size: { H: number, W: number };
     protected _context: CanvasRenderingContext2D;
@@ -66,23 +66,38 @@ export class Drawer {
 
            //Clear Frame, perf?
             this._context.clearRect(0, 0, this._size.W, this._size.H);
-            
+            this.RenderStats(true);            
             //stat box
-            var s = JSON.parse('{ "stats": []}');//this._stats.stats;
-            s.stats.push( JSON.parse('{ "key" : "Fps", "value" : "' + this._fpsData.currentFps + '"}') );
-            s.stats.push( JSON.parse('{ "key" : "Frames", "value" : "' + this._fpsData.frameCount + '"}') );
 
-            for(var i = 0, len = s.stats.length; i < len; i++){    
-                console.log(i);        
-                 this._context.fillText( s.stats[i].key + ":" + s.stats[i].value ,10, 10*i++);                 
-            }
             //  drawing code here
           
-            this.Drawables.forEach(element => {
-    
-            });
+            for(var item of this.Drawables){           
+                               
+            }
         }
 
+    }
+
+    private RenderStats(render:Boolean){
+        if(render){
+            //speed?
+            var tmparr = this._stats.slice(0);
+
+            var fpsCount = new Stat();
+                fpsCount.key = "Fps";
+                fpsCount.val = this._fpsData.currentFps;
+                tmparr.push( fpsCount );
+            
+            var frameCount = new Stat();
+                frameCount.key = "Frames";
+                frameCount.val = this._fpsData.frameCount;
+                tmparr.push( frameCount );
+
+            var i = 1;
+            for(var item of tmparr){           
+                 this._context.fillText( item.key + ":" + item.val ,10, 10*i++);                 
+            }
+        }
     }
 
 
@@ -97,4 +112,4 @@ export class Drawer {
 
 }
 
-interface Stat{ key: any, value: any }
+class Stat{ key: any; val: any; }

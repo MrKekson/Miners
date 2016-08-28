@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Drawer = (function () {
     function Drawer() {
-        this._stats = JSON.parse('{ "stats": []}');
+        this._stats = [];
         this._dataPanel = { h: 10, w: 10, context: CanvasRenderingContext2D };
         this.stop = false;
         this.Drawables = [];
@@ -46,17 +46,31 @@ var Drawer = (function () {
             this._fpsData.currentFps = Math.round(1000 / (sinceStart / ++this._fpsData.frameCount) * 100) / 100;
             //Clear Frame, perf?
             this._context.clearRect(0, 0, this._size.W, this._size.H);
+            this.RenderStats(true);
             //stat box
-            var s = JSON.parse('{ "stats": []}'); //this._stats.stats;
-            s.stats.push(JSON.parse('{ "key" : "Fps", "value" : "' + this._fpsData.currentFps + '"}'));
-            s.stats.push(JSON.parse('{ "key" : "Frames", "value" : "' + this._fpsData.frameCount + '"}'));
-            for (var i = 0, len = s.stats.length; i < len; i++) {
-                console.log(i);
-                this._context.fillText(s.stats[i].key + ":" + s.stats[i].value, 10, 10 * i++);
-            }
             //  drawing code here
-            this.Drawables.forEach(function (element) {
-            });
+            for (var _i = 0, _a = this.Drawables; _i < _a.length; _i++) {
+                var item = _a[_i];
+            }
+        }
+    };
+    Drawer.prototype.RenderStats = function (render) {
+        if (render) {
+            //speed?
+            var tmparr = this._stats.slice(0);
+            var fpsCount = new Stat();
+            fpsCount.key = "Fps";
+            fpsCount.val = this._fpsData.currentFps;
+            tmparr.push(fpsCount);
+            var frameCount = new Stat();
+            frameCount.key = "Frames";
+            frameCount.val = this._fpsData.frameCount;
+            tmparr.push(frameCount);
+            var i = 1;
+            for (var _i = 0, tmparr_1 = tmparr; _i < tmparr_1.length; _i++) {
+                var item = tmparr_1[_i];
+                this._context.fillText(item.key + ":" + item.val, 10, 10 * i++);
+            }
         }
     };
     Object.defineProperty(Drawer.prototype, "size", {
@@ -87,4 +101,9 @@ var Drawer = (function () {
     return Drawer;
 }());
 exports.Drawer = Drawer;
+var Stat = (function () {
+    function Stat() {
+    }
+    return Stat;
+}());
 //# sourceMappingURL=drawer.drawer.js.map
