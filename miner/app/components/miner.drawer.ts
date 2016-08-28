@@ -32,6 +32,9 @@ export class Drawer {
     ngAfterViewInit() { // wait for the view to init before using the element
         this._contexts = [];
 
+        var ctx:CanvasRenderingContext2D = this.drawerCanvas.nativeElement.getContext("2D");
+        ctx.font="10px Verdana";
+        ctx.fillText("Fps: <<>>",10,50);
      //   this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
 
        // this._dataPanel.context

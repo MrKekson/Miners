@@ -3,8 +3,9 @@ import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'topbar',
-    template: 'Ticks (every second) : {{ticks}}'
+    templateUrl: `templates/timer.html`,
 })
+
 export class Timer {
  
   ticks = 0;
@@ -14,6 +15,7 @@ export class Timer {
     console.log("TimerInit");
     let timer = Observable.timer(2000,1000);
     timer.subscribe(t=>this.ticks = t);
+
   // const HeartBeat = Observable.bindCallback( this.tick );
     
    //HeartBeat.subscribe 

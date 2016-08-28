@@ -22,6 +22,9 @@ var Drawer = (function () {
     }
     Drawer.prototype.ngAfterViewInit = function () {
         this._contexts = [];
+        var ctx = this.drawerCanvas.nativeElement.getContext("2D");
+        ctx.font = "10px Verdana";
+        ctx.fillText("Fps: <<>>", 10, 50);
         //   this._dataPanel.context = this.drawerCanvas.nativeElement.getContext("2d");
         // this._dataPanel.context
         this._contexts.push(this.drawerCanvas.nativeElement.getContext("2d"));

@@ -16,23 +16,17 @@ var Timer = (function () {
     }
     Timer.prototype.ngOnInit = function () {
         var _this = this;
-        console.log("TimerInit");
         var timer = Rx_1.Observable.timer(2000, 1000);
         timer.subscribe(function (t) { return _this.ticks = t; });
-        // const HeartBeat = Observable.bindCallback( this.tick );
-        //HeartBeat.subscribe 
-    };
-    Timer.prototype.tick = function (t) {
-        console.log("faff");
     };
     Timer = __decorate([
         core_1.Component({
-            selector: 'topbar',
-            templateUrl: "templates/timer.html",
+            selector: 'my-app',
+            template: ''
         }), 
         __metadata('design:paramtypes', [])
     ], Timer);
     return Timer;
 }());
 exports.Timer = Timer;
-//# sourceMappingURL=miner.timer.js.map
+//# sourceMappingURL=comp.timer.js.map
