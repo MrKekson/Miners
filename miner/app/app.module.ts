@@ -10,5 +10,6 @@ import { RootController }  from './components/controller.root';
   imports:      [ BrowserModule ],
   declarations: [ RootController ],
   bootstrap:    [ RootController ]
+  
 })
 export class AppModule { }
