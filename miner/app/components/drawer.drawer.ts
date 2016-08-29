@@ -41,24 +41,40 @@ export class Drawer {
         this._context = this.drawerCanvas.nativeElement.getContext("2d");
 
         this._context.font = "10px Verdana";
-        this._context.lineWidth = 2;
+        this._context.lineWidth = 0.3;
+        this._context.fillStyle = "#000000";
 
         //test data, remove
         
-        this.Drawables.push(new Drawable(100, 100, 0, 1, 0,"#0000ff", "#000000") );
-        this.Drawables.push(new Drawable(100, 200, 0, 2, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new Drawable(100, 300, 0, 5, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new Drawable(100, 400, 0, 10, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(50, 100, 0, 1, 1, "#00ff00", "#000000") );
+        this.Drawables.push(new Drawable(50, 200, 10, 2, 1,"#00ff00", "#000000") );
+        this.Drawables.push(new Drawable(50, 300, 20, 5, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new Drawable(50, 400, 30, 10, 1, "#00ff00", "#000000"));
 
-        this.Drawables.push(new Drawable(200, 100, 0, 1, 1,"#00ff00", "#404040") );
-        this.Drawables.push(new Drawable(200, 200, 10, 2, 1,"#00ff00", "#404040") );
-        this.Drawables.push(new Drawable(200, 300, 20, 5, 1, "#00ff00", "#404040"));
-        this.Drawables.push(new Drawable(200, 400, 30, 10, 1, "#00ff00", "#404040"));
+        this.Drawables.push(new Drawable(150, 100, 0, 1, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(150, 200, 0, 2, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(150, 300, 0, 5, 2, "#ffff00", "#000000"));
+        this.Drawables.push(new Drawable(150, 400, 0, 10, 2, "#ffff00", "#000000"));
 
-        this.Drawables.push(new Drawable(300, 100, 0, 1, 2,"#ffff00", "#202020") );
-        this.Drawables.push(new Drawable(300, 200, 10, 2, 2,"#ffff00", "#202020") );
-        this.Drawables.push(new Drawable(300, 300, 20, 5, 2, "#ffff00", "#202020"));
-        this.Drawables.push(new Drawable(300, 400, 30, 10, 2, "#ffff00", "#202020"));
+        this.Drawables.push(new Drawable(250, 100, 0, 1, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(250, 200, 10, 2, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(250, 300, 20, 5, 2, "#ffff00", "#000000"));
+        this.Drawables.push(new Drawable(250, 400, 30, 10, 2, "#ffff00", "#000000"));
+
+        this.Drawables.push(new Drawable(330, 100, 0, 1, 0,"#0000ff", "#000000") );
+        this.Drawables.push(new Drawable(330, 200, 0, 2, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(330, 300, 0, 5, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(330, 400, 0, 10, 0, "#0000ff", "#000000"));
+
+        this.Drawables.push(new Drawable(500, 100, 0, 1, 1,"#00ff00", "#000000") );
+        this.Drawables.push(new Drawable(500, 200, 0, 2, 1,"#00ff00", "#000000") );
+        this.Drawables.push(new Drawable(500, 300, 0, 5, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new Drawable(500, 400, 0, 10, 1, "#00ff00", "#000000"));
+
+        this.Drawables.push(new Drawable(600, 100, 0, 1, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(600, 200, 0, 2, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(600, 300, 0, 5, 2, "#ffff00", "#000000"));
+        this.Drawables.push(new Drawable(600, 400, 0, 10, 2, "#ffff00", "#000000"));
 
         this.startAnimating(30);
         console.log("Drawer Init")
@@ -84,15 +100,18 @@ export class Drawer {
 
             //Clear Frame, perf?
             this._context.clearRect(0, 0, this._size.W, this._size.H);
+
+
+            //things
+
             this.RenderStats(true);
-            //stat box
+            this.DrawGrid(50);
 
             //  drawing code here
 
+
             for (var item of this.Drawables) {
                     this.Renderer1(item);
-
-
             }
         }
 
@@ -100,28 +119,40 @@ export class Drawer {
 
     //first try
     private Renderer1( drw:Drawable ){
+           drw.facing >= 360 ? drw.facing = 0 : drw.x > 300 ? drw.facing+=3 :null;   
 
-           //var filltmp = this._context.fillStyle;
-           //var rotate = this._context.rotate;
            this._context.save();
 
            switch (drw.shape) {
                case 0:
+                        var size = drw.size*5;
+                        var offset = size/2;
+
+                        this._context.translate(drw.x+offset, drw.y+offset);
+                        //this._middle();
+                        //this._context.rotate(drw.facing*Math.PI/180); //hehe
+                        
                         this._context.beginPath();
-                        this._context.arc(drw.x, drw.y, drw.size*5, 0, 2 * Math.PI, false);
+                        this._context.arc(-offset, -offset, size, 0, 2 * Math.PI);
                         this._context.fillStyle = drw.colour;
                         this._context.fill();
                         this._context.strokeStyle = drw.borderColour;
-                        this._context.rotate(drw.facing*Math.PI/180);
+                        
                         this._context.stroke();
                    break;
                 case 1: 
-                        this._context.rotate(drw.facing*Math.PI/180);
-                        this._context.fillStyle = drw.colour;
+                   
                         var size = drw.size*10;
                         var offset = size/2;
-                        this._context.fillRect(drw.x-offset, drw.y-offset, size, size);
-                        this._context.strokeRect(drw.x-offset, drw.y-offset, size, size);
+
+                        this._context.fillStyle = drw.colour;
+                        
+                        this._context.translate(drw.x+offset, drw.y+offset);
+                        //this._middle();
+                        this._context.rotate(drw.facing*Math.PI/180);
+                        
+                        this._context.fillRect(-size, -size, size, size);
+                        this._context.strokeRect(-size, -size, size, size);
                         
                     break;
                 case 2:
@@ -130,11 +161,14 @@ export class Drawer {
                         var offset = size/2;
 
                         this._context.translate(drw.x+offset, drw.y+offset);
+                        
                         this._context.rotate(drw.facing*Math.PI/180);
+                        //this._middle();
+                            
                         this._context.beginPath();
-                        this._context.moveTo(drw.x, drw.y-offset);
-                        this._context.lineTo(drw.x + size / 2, drw.y + offset);
-                        this._context.lineTo(drw.x - size / 2, drw.y + offset);
+                        this._context.moveTo(-offset, -offset);
+                        this._context.lineTo( 0, offset);
+                        this._context.lineTo(-size, offset);
                         this._context.closePath();
                         this._context.fillStyle = drw.colour;
                         this._context.fill();
@@ -144,17 +178,44 @@ export class Drawer {
                    break;
            } 
            this._context.restore();
-        //    this._context.setTransform(1, 0, 0, 1, 0, 0);
-        //    this._context.fillStyle = filltmp; 
-           //this._context.rotate(-rotate);
+    }
+
+
+    private DrawGrid( gridsize:number ){
+        this._context.save();
+        this._context.setTransform(1, 0, 0, 1, 0, 0);
+        
+        for (var index = 0; index < this._size.H; index+=gridsize) {          
+            this._context.beginPath();
+            this._context.moveTo(0, index);
+            this._context.lineTo(this._size.W, index);
+            this._context.stroke();
+        }
+
+        for (var index = 0; index < this._size.W; index+=gridsize) {          
+            this._context.beginPath();
+            this._context.moveTo(index, 0);
+            this._context.lineTo(index, this._size.H);
+            this._context.stroke();
+        }
+        
+        this._context.restore();
 
     }
+
+    private _middle(){
+         this._context.save();
+         this._context.arc(0, 0, 0.5, 0, 2 * Math.PI);
+         this._context.fillStyle = "#000000";
+         this._context.fill();
+         this._context.restore();
+    };
 
     private RenderStats(render: Boolean) {
         if (render) {
             //speed?
             var tmparr = this._stats.slice(0);
-         
+
             tmparr.push(new Stat("Fps", this._fpsData.currentFps));
             tmparr.push(new Stat("Frames", this._fpsData.frameCount));
             tmparr.push(new Stat("Drawables", this.Drawables.length));
