@@ -2,4 +2,4 @@
 *
 !/.gitignore
 !*.js
-!*.map.js
+!*.js.map
