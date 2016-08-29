@@ -1,5 +1,5 @@
 # Ignore any file in this directory except for this file and *.foo files
 *
 !/.gitignore
-!*.js
-!*.js.map
+*.map
+*.js.map
