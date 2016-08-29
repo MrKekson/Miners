@@ -30,7 +30,7 @@ export class Drawer {
     constructor() {
 
         this._size = {
-            H: 500,
+            H: 600,
             W: 1200,
         }
 

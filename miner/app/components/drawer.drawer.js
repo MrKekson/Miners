@@ -19,7 +19,7 @@ var Drawer = (function () {
         // private $results = $("#results");
         this._fpsData = { targetFps: 0, fpsInterval: 0, startTime: 0, now: 0, then: 0, elapsed: 0, currentFps: 0, frameCount: 0 };
         this._size = {
-            H: 500,
+            H: 600,
             W: 1200,
         };
     }
