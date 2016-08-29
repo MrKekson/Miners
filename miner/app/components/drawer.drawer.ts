@@ -45,34 +45,34 @@ export class Drawer {
         this._context.fillStyle = "#000000";
 
         //test data, remove
-        
-        this.Drawables.push(new Drawable(50, 100, 0, 1, 1, "#00ff00", "#000000") );
-        this.Drawables.push(new Drawable(50, 200, 10, 2, 1,"#00ff00", "#000000") );
-        this.Drawables.push(new Drawable(50, 300, 20, 5, 1, "#00ff00", "#000000"));
-        this.Drawables.push(new Drawable(50, 400, 30, 10, 1, "#00ff00", "#000000"));
 
-        this.Drawables.push(new Drawable(150, 100, 0, 1, 2,"#ffff00", "#000000") );
-        this.Drawables.push(new Drawable(150, 200, 0, 2, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(50, 100, 0, 1, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new Drawable(50, 200, 0, 2, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new Drawable(50, 300, 0, 5, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new Drawable(50, 400, 0, 10, 1, "#00ff00", "#000000"));
+
+        this.Drawables.push(new Drawable(150, 100, 0, 1, 2, "#ffff00", "#000000"));
+        this.Drawables.push(new Drawable(150, 200, 0, 2, 2, "#ffff00", "#000000"));
         this.Drawables.push(new Drawable(150, 300, 0, 5, 2, "#ffff00", "#000000"));
         this.Drawables.push(new Drawable(150, 400, 0, 10, 2, "#ffff00", "#000000"));
 
-        this.Drawables.push(new Drawable(250, 100, 0, 1, 2,"#ffff00", "#000000") );
-        this.Drawables.push(new Drawable(250, 200, 10, 2, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(250, 100, 0, 1, 2, "#ffff00", "#000000"));
+        this.Drawables.push(new Drawable(250, 200, 10, 2, 2, "#ffff00", "#000000"));
         this.Drawables.push(new Drawable(250, 300, 20, 5, 2, "#ffff00", "#000000"));
         this.Drawables.push(new Drawable(250, 400, 30, 10, 2, "#ffff00", "#000000"));
 
-        this.Drawables.push(new Drawable(330, 100, 0, 1, 0,"#0000ff", "#000000") );
-        this.Drawables.push(new Drawable(330, 200, 0, 2, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new Drawable(330, 300, 0, 5, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new Drawable(330, 400, 0, 10, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(350, 100, 0, 1, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(350, 200, 0, 2, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(350, 300, 0, 5, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new Drawable(350, 400, 0, 10, 0, "#0000ff", "#000000"));
 
-        this.Drawables.push(new Drawable(500, 100, 0, 1, 1,"#00ff00", "#000000") );
-        this.Drawables.push(new Drawable(500, 200, 0, 2, 1,"#00ff00", "#000000") );
+        this.Drawables.push(new Drawable(500, 100, 0, 1, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new Drawable(500, 200, 0, 2, 1, "#00ff00", "#000000"));
         this.Drawables.push(new Drawable(500, 300, 0, 5, 1, "#00ff00", "#000000"));
         this.Drawables.push(new Drawable(500, 400, 0, 10, 1, "#00ff00", "#000000"));
 
-        this.Drawables.push(new Drawable(600, 100, 0, 1, 2,"#ffff00", "#000000") );
-        this.Drawables.push(new Drawable(600, 200, 0, 2, 2,"#ffff00", "#000000") );
+        this.Drawables.push(new Drawable(600, 100, 0, 1, 2, "#ffff00", "#000000"));
+        this.Drawables.push(new Drawable(600, 200, 0, 2, 2, "#ffff00", "#000000"));
         this.Drawables.push(new Drawable(600, 300, 0, 5, 2, "#ffff00", "#000000"));
         this.Drawables.push(new Drawable(600, 400, 0, 10, 2, "#ffff00", "#000000"));
 
@@ -111,107 +111,99 @@ export class Drawer {
 
 
             for (var item of this.Drawables) {
-                    this.Renderer1(item);
+                this.Renderer1(item);
             }
         }
 
     }
 
     //first try
-    private Renderer1( drw:Drawable ){
-           drw.facing >= 360 ? drw.facing = 0 : drw.x > 300 ? drw.facing+=3 :null;   
+    private Renderer1(drw: Drawable) {
+        drw.facing >= 360 ? drw.facing = 0 : drw.x > 300 ? drw.facing += 3 : null;
 
-           this._context.save();
+        this._context.save();
 
-           switch (drw.shape) {
-               case 0:
-                        var size = drw.size*5;
-                        var offset = size/2;
+        switch (drw.shape) {
+            case 0:
+                var size = drw.size * 5;
+                var offset = size / 2;
 
-                        this._context.translate(drw.x+offset, drw.y+offset);
-                        //this._middle();
-                        //this._context.rotate(drw.facing*Math.PI/180); //hehe
-                        
-                        this._context.beginPath();
-                        this._context.arc(-offset, -offset, size, 0, 2 * Math.PI);
-                        this._context.fillStyle = drw.colour;
-                        this._context.fill();
-                        this._context.strokeStyle = drw.borderColour;
-                        
-                        this._context.stroke();
-                   break;
-                case 1: 
-                   
-                        var size = drw.size*10;
-                        var offset = size/2;
+                this._context.translate(drw.x + offset, drw.y + offset);
+                //this._middle();
+                //this._context.rotate(drw.facing*Math.PI/180); //hehe
 
-                        this._context.fillStyle = drw.colour;
-                        
-                        this._context.translate(drw.x+offset, drw.y+offset);
-                        //this._middle();
-                        this._context.rotate(drw.facing*Math.PI/180);
-                        
-                        this._context.fillRect(-size, -size, size, size);
-                        this._context.strokeRect(-size, -size, size, size);
-                        
-                    break;
-                case 2:
+                this._context.beginPath();
+                this._context.arc(-offset, -offset, size, 0, 2 * Math.PI);
+                this._context.fillStyle = drw.colour;
+                this._context.fill();
+                this._context.strokeStyle = drw.borderColour;
+                this._context.stroke();
+                break;
+            case 1:
 
-                        var size = drw.size*10;
-                        var offset = size/2;
+                var size = drw.size * 10;
+                var offset = size / 2;
 
-                        this._context.translate(drw.x+offset, drw.y+offset);
-                        
-                        this._context.rotate(drw.facing*Math.PI/180);
-                        //this._middle();
-                            
-                        this._context.beginPath();
-                        this._context.moveTo(-offset, -offset);
-                        this._context.lineTo( 0, offset);
-                        this._context.lineTo(-size, offset);
-                        this._context.closePath();
-                        this._context.fillStyle = drw.colour;
-                        this._context.fill();
-                    break;
+                this._context.translate(drw.x, drw.y);
+                this._context.rotate(drw.facing * Math.PI / 180);
+                
 
-               default:
-                   break;
-           } 
-           this._context.restore();
+                this._context.beginPath();
+                this._context.moveTo(0, -offset*0.9);
+                this._context.lineTo(offset, offset*0.6);
+                this._context.lineTo(-offset, offset*0.6);
+                this._context.closePath();
+                this._context.fillStyle = drw.colour;
+                this._context.fill();
+                
+                this.RenderMiddle();
+
+                break;
+            case 2:
+                var size = drw.size * 10;
+                var offset = size / 2;
+
+                this._context.fillStyle = drw.colour;
+
+                this._context.translate(drw.x , drw.y );
+              
+                this._context.rotate(drw.facing * Math.PI / 180);
+
+                this._context.fillRect(-offset, -offset, size, size);
+                this._context.strokeRect(-offset, -offset, size, size);
+                
+                this.RenderMiddle();  
+
+                break;
+
+            default:
+                break;
+        }
+        this._context.restore();
     }
 
 
-    private DrawGrid( gridsize:number ){
+    private DrawGrid(gridsize: number) {
         this._context.save();
         this._context.setTransform(1, 0, 0, 1, 0, 0);
         this._context.lineWidth = 0.3;
         this._context.fillStyle = "#000000";
-        
-        for (var index = 0; index < this._size.H; index+=gridsize) {          
+
+        for (var index = 0; index < this._size.H; index += gridsize) {
             this._context.beginPath();
             this._context.moveTo(0, index);
             this._context.lineTo(this._size.W, index);
             this._context.stroke();
         }
 
-        for (var index = 0; index < this._size.W; index+=gridsize) {          
+        for (var index = 0; index < this._size.W; index += gridsize) {
             this._context.beginPath();
             this._context.moveTo(index, 0);
             this._context.lineTo(index, this._size.H);
             this._context.stroke();
         }
-        
         this._context.restore();
-
     }
-
-    private _middle(){
-         this._context.save();
-         this._context.arc(0, 0, 0.5, 0, 2 * Math.PI);
-         this._context.fillStyle = "#000000";
-         this._context.fill();
-         this._context.restore();
-    };
 
     private RenderStats(render: Boolean) {
         if (render) {
@@ -229,6 +221,12 @@ export class Drawer {
         }
     }
 
+    private RenderMiddle(){
+                this._context.beginPath();
+                this._context.lineWidth = 2;
+                this._context.arc(0, 0, 2, 0, 2 * Math.PI);
+                this._context.stroke();
+    }
 
     get size() {
         return this._size;
@@ -241,4 +239,4 @@ export class Drawer {
 
 }
 
-class Stat { key: any; val: any; constructor( key: string, val:any  ) { this.key = key; this.val = val; } }
+class Stat { key: any; val: any; constructor(key: string, val: any) { this.key = key; this.val = val; } }

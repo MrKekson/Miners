@@ -30,9 +30,9 @@ var Drawer = (function () {
         this._context.fillStyle = "#000000";
         //test data, remove
         this.Drawables.push(new drawer_drawable_1.Drawable(50, 100, 0, 1, 1, "#00ff00", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(50, 200, 10, 2, 1, "#00ff00", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(50, 300, 20, 5, 1, "#00ff00", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(50, 400, 30, 10, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(50, 200, 0, 2, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(50, 300, 0, 5, 1, "#00ff00", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(50, 400, 0, 10, 1, "#00ff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(150, 100, 0, 1, 2, "#ffff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(150, 200, 0, 2, 2, "#ffff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(150, 300, 0, 5, 2, "#ffff00", "#000000"));
@@ -41,10 +41,10 @@ var Drawer = (function () {
         this.Drawables.push(new drawer_drawable_1.Drawable(250, 200, 10, 2, 2, "#ffff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(250, 300, 20, 5, 2, "#ffff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(250, 400, 30, 10, 2, "#ffff00", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(330, 100, 0, 1, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(330, 200, 0, 2, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(330, 300, 0, 5, 0, "#0000ff", "#000000"));
-        this.Drawables.push(new drawer_drawable_1.Drawable(330, 400, 0, 10, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(350, 100, 0, 1, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(350, 200, 0, 2, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(350, 300, 0, 5, 0, "#0000ff", "#000000"));
+        this.Drawables.push(new drawer_drawable_1.Drawable(350, 400, 0, 10, 0, "#0000ff", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(500, 100, 0, 1, 1, "#00ff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(500, 200, 0, 2, 1, "#00ff00", "#000000"));
         this.Drawables.push(new drawer_drawable_1.Drawable(500, 300, 0, 5, 1, "#00ff00", "#000000"));
@@ -105,26 +105,26 @@ var Drawer = (function () {
             case 1:
                 var size = drw.size * 10;
                 var offset = size / 2;
-                this._context.fillStyle = drw.colour;
-                this._context.translate(drw.x + offset, drw.y + offset);
-                //this._middle();
+                this._context.translate(drw.x, drw.y);
                 this._context.rotate(drw.facing * Math.PI / 180);
-                this._context.fillRect(-size, -size, size, size);
-                this._context.strokeRect(-size, -size, size, size);
+                this._context.beginPath();
+                this._context.moveTo(0, -offset * 0.9);
+                this._context.lineTo(offset, offset * 0.6);
+                this._context.lineTo(-offset, offset * 0.6);
+                this._context.closePath();
+                this._context.fillStyle = drw.colour;
+                this._context.fill();
+                this.RenderMiddle();
                 break;
             case 2:
                 var size = drw.size * 10;
                 var offset = size / 2;
-                this._context.translate(drw.x + offset, drw.y + offset);
-                this._context.rotate(drw.facing * Math.PI / 180);
-                //this._middle();
-                this._context.beginPath();
-                this._context.moveTo(-offset, -offset);
-                this._context.lineTo(0, offset);
-                this._context.lineTo(-size, offset);
-                this._context.closePath();
                 this._context.fillStyle = drw.colour;
-                this._context.fill();
+                this._context.translate(drw.x, drw.y);
+                this._context.rotate(drw.facing * Math.PI / 180);
+                this._context.fillRect(-offset, -offset, size, size);
+                this._context.strokeRect(-offset, -offset, size, size);
+                this.RenderMiddle();
                 break;
             default:
                 break;
@@ -150,14 +150,6 @@ var Drawer = (function () {
         }
         this._context.restore();
     };
-    Drawer.prototype._middle = function () {
-        this._context.save();
-        this._context.arc(0, 0, 0.5, 0, 2 * Math.PI);
-        this._context.fillStyle = "#000000";
-        this._context.fill();
-        this._context.restore();
-    };
-    ;
     Drawer.prototype.RenderStats = function (render) {
         if (render) {
             //speed?
@@ -171,6 +163,12 @@ var Drawer = (function () {
                 this._context.fillText(item.key + ":" + item.val, 10, 10 * i++);
             }
         }
+    };
+    Drawer.prototype.RenderMiddle = function () {
+        this._context.beginPath();
+        this._context.lineWidth = 2;
+        this._context.arc(0, 0, 2, 0, 2 * Math.PI);
+        this._context.stroke();
     };
     Object.defineProperty(Drawer.prototype, "size", {
         get: function () {
