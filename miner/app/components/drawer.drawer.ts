@@ -140,10 +140,8 @@ export class Drawer {
                 this._context.stroke();
                 break;
             case 1:
-
                 var size = drw.size * 10;
                 var offset = size / 2;
-
                 this._context.translate(drw.x, drw.y);
                 this._context.rotate(drw.facing * Math.PI / 180);
                 
