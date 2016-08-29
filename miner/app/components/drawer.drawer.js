@@ -20,7 +20,7 @@ var Drawer = (function () {
         this._fpsData = { targetFps: 0, fpsInterval: 0, startTime: 0, now: 0, then: 0, elapsed: 0, currentFps: 0, frameCount: 0 };
         this._size = {
             H: 500,
-            W: 700,
+            W: 1200,
         };
     }
     Drawer.prototype.ngAfterViewInit = function () {
@@ -134,6 +134,8 @@ var Drawer = (function () {
     Drawer.prototype.DrawGrid = function (gridsize) {
         this._context.save();
         this._context.setTransform(1, 0, 0, 1, 0, 0);
+        this._context.lineWidth = 0.3;
+        this._context.fillStyle = "#000000";
         for (var index = 0; index < this._size.H; index += gridsize) {
             this._context.beginPath();
             this._context.moveTo(0, index);

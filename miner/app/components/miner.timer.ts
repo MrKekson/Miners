@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
-    selector: 'topbar',
+    selector: 'timer',
     templateUrl: `templates/timer.html`,
 })
 
@@ -12,7 +12,7 @@ export class Timer {
 
   ngOnInit(){
 
-    console.log("TimerInit");
+    console.log("Timer Init");
     let timer = Observable.timer(2000,1000);
     timer.subscribe(t=>this.ticks = t);
 
@@ -22,8 +22,7 @@ export class Timer {
   }
 
   tick( t ){
-
-
+    
     console.log("faff");
 
   }

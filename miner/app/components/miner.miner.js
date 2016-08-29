@@ -18,7 +18,7 @@ var drawer_drawable_1 = require('./drawer.drawable');
 var Miner = (function (_super) {
     __extends(Miner, _super);
     function Miner() {
-        _super.call(this);
+        _super.call(this, 0, 0, 0, 0);
     }
     Miner = __decorate([
         core_1.Component({}), 

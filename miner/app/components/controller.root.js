@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var miner_timer_1 = require('./miner.timer');
 var miner_world_1 = require('./miner.world');
 var drawer_drawer_1 = require('./drawer.drawer');
+var controller_topbar_1 = require('./controller.topbar');
 var RootController = (function () {
     function RootController() {
         console.log("Root.ctor()");
@@ -23,7 +24,7 @@ var RootController = (function () {
         core_1.Component({
             selector: 'my-app',
             templateUrl: './templates/mainView.html',
-            directives: [drawer_drawer_1.Drawer, miner_world_1.World, miner_timer_1.Timer]
+            directives: [drawer_drawer_1.Drawer, miner_world_1.World, miner_timer_1.Timer, controller_topbar_1.TopBarController]
         }), 
         __metadata('design:paramtypes', [])
     ], RootController);

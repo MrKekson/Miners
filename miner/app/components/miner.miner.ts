@@ -10,7 +10,7 @@ import { Drawable } from './drawer.drawable';
 export class Miner extends Drawable {
  
  constructor(){
-     super();
+     super(0,0,0,0);
  }
 
 

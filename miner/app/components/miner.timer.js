@@ -16,7 +16,7 @@ var Timer = (function () {
     }
     Timer.prototype.ngOnInit = function () {
         var _this = this;
-        console.log("TimerInit");
+        console.log("Timer Init");
         var timer = Rx_1.Observable.timer(2000, 1000);
         timer.subscribe(function (t) { return _this.ticks = t; });
         // const HeartBeat = Observable.bindCallback( this.tick );
@@ -27,7 +27,7 @@ var Timer = (function () {
     };
     Timer = __decorate([
         core_1.Component({
-            selector: 'topbar',
+            selector: 'timer',
             templateUrl: "templates/timer.html",
         }), 
         __metadata('design:paramtypes', [])
